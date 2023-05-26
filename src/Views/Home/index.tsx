@@ -23,7 +23,8 @@ export default function Home ({ navigation, route }: HomeScreenType) {
             backgroundColor: palette.primary
           },
           headerBackground: () => <View style={{ backgroundColor: palette.primary }} />,
-          headerTintColor: palette.white
+          headerTintColor: palette.white,
+          swipeEdgeWidth: 50
         }}
       >
         <Screen
