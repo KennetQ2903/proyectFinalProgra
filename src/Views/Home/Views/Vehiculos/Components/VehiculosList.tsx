@@ -1,22 +1,21 @@
 import { memo, useCallback, useState } from 'react'
 import { FlatList, TextInput, RefreshControl } from 'react-native'
-
-import { Cliente } from '../../../../../../types.global'
 import { palette } from '../../../../../Config/theme'
-import { ClientItem } from '../../../../../Components/ClientItem'
+import { Vehiculo } from '../../../../../../types.global'
+import { VehiculoItem } from '../../../../../Components/VehiculoItem'
 
-export const ClientList = memo(function ClientList ({
+export const VehiculosList = memo(function UserList ({
   data,
   loading = false,
   onRefresh
 }: {
-    data: Cliente[],
+    data: Vehiculo[],
     loading: boolean,
     onRefresh(): Promise<void>
 }) {
   const [query, setQuery] = useState('')
-  const renderItem = useCallback(({ item }: {item: Cliente}) => (
-    <ClientItem {...item} />
+  const renderItem = useCallback(({ item }: {item: Vehiculo}) => (
+    <VehiculoItem {...item} />
   ), [])
   return (
     <>
@@ -29,10 +28,10 @@ export const ClientList = memo(function ClientList ({
           borderRadius: 13,
           margin: 10
         }}
-        placeholder='Buscar Cliente por Nombre'
+        placeholder='Buscar Vehiculos por placa'
       />
       <FlatList
-        data={query.length ? data.filter(c => c.nombre.toLowerCase().includes(query.toLowerCase())) : data}
+        data={query.length ? data.filter(c => c.placa.toLowerCase().includes(query.toLowerCase())) : data}
         renderItem={renderItem}
         refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
       />

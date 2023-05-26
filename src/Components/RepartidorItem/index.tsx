@@ -1,14 +1,14 @@
 import { FC } from 'react'
 
-import { Cliente } from '../../../types.global'
 import { View, Text, StyleSheet } from 'react-native'
 import { fonts, palette } from '../../Config/theme'
+import { Repartidor } from '../../../types.global'
 
-export const ClientItem: FC<Cliente> = ({ apellido, cui, direccion, nombre, telefono }) => {
+export const RepartidorItem: FC<Repartidor> = ({ apellido, cui, licencia, nombre, telefono }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{nombre} {apellido}</Text>
-      <Text style={styles.content}>Direccion: {direccion}</Text>
+      <Text style={styles.content}>Licencia: {licencia}</Text>
       <Text style={styles.content}>Telefono: {telefono}</Text>
       <Text style={styles.content}>CUI: {cui}</Text>
     </View>

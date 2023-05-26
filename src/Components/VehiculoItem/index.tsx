@@ -1,16 +1,17 @@
 import { FC } from 'react'
 
-import { Cliente } from '../../../types.global'
 import { View, Text, StyleSheet } from 'react-native'
 import { fonts, palette } from '../../Config/theme'
+import { Vehiculo } from '../../../types.global'
 
-export const ClientItem: FC<Cliente> = ({ apellido, cui, direccion, nombre, telefono }) => {
+export const VehiculoItem: FC<Vehiculo> = ({ color, marca, modelo, placa, year }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{nombre} {apellido}</Text>
-      <Text style={styles.content}>Direccion: {direccion}</Text>
-      <Text style={styles.content}>Telefono: {telefono}</Text>
-      <Text style={styles.content}>CUI: {cui}</Text>
+      <Text style={styles.title}>{placa}</Text>
+      <Text style={styles.content}>Marca: {marca}</Text>
+      <Text style={styles.content}>Modelo: {modelo}</Text>
+      <Text style={styles.content}>Año: {year}</Text>
+      <Text style={styles.content}>Color: {color}</Text>
     </View>
   )
 }

@@ -1,19 +1,17 @@
-import { useEffect } from 'react'
-import { useGetClients } from '../../../../Services/useGetClients'
+import { Cliente } from '../../../../../types.global'
+import { API_URL_PROD } from '../../../../Config/API'
+import { useFetch } from '../../../../Hooks/useFetch'
 import { ClientList } from './Components/ClientList'
+
+const URL = `${API_URL_PROD}/clients`
 export default function Clientes () {
-  const { getClients, clients, loading } = useGetClients()
-  useEffect(() => {
-    if (clients.data.length === 0) {
-      getClients()
-    }
-  }, [])
+  const { data, fetchData } = useFetch<Cliente[]>(URL)
   return (
     <>
       <ClientList
-        data={clients.data}
-        loading={loading}
-        onRefresh={getClients}
+        data={data || []}
+        loading={!data}
+        onRefresh={() => fetchData('update')}
       />
     </>
   )

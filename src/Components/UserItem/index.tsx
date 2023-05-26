@@ -1,16 +1,14 @@
 import { FC } from 'react'
 
-import { Cliente } from '../../../types.global'
+import { Usuario } from '../../../types.global'
 import { View, Text, StyleSheet } from 'react-native'
 import { fonts, palette } from '../../Config/theme'
 
-export const ClientItem: FC<Cliente> = ({ apellido, cui, direccion, nombre, telefono }) => {
+export const UserItem: FC<Usuario> = ({ apellido, id, nombre, password }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{nombre} {apellido}</Text>
-      <Text style={styles.content}>Direccion: {direccion}</Text>
-      <Text style={styles.content}>Telefono: {telefono}</Text>
-      <Text style={styles.content}>CUI: {cui}</Text>
+      <Text style={styles.title}>ID - {id}</Text>
+      <Text style={styles.content}>{nombre} {apellido}</Text>
     </View>
   )
 }

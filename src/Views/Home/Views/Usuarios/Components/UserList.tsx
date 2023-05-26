@@ -1,22 +1,21 @@
 import { memo, useCallback, useState } from 'react'
 import { FlatList, TextInput, RefreshControl } from 'react-native'
-
-import { Cliente } from '../../../../../../types.global'
+import { Usuario } from '../../../../../../types.global'
+import { UserItem } from '../../../../../Components/UserItem'
 import { palette } from '../../../../../Config/theme'
-import { ClientItem } from '../../../../../Components/ClientItem'
 
-export const ClientList = memo(function ClientList ({
+export const UserList = memo(function UserList ({
   data,
   loading = false,
   onRefresh
 }: {
-    data: Cliente[],
+    data: Usuario[],
     loading: boolean,
     onRefresh(): Promise<void>
 }) {
   const [query, setQuery] = useState('')
-  const renderItem = useCallback(({ item }: {item: Cliente}) => (
-    <ClientItem {...item} />
+  const renderItem = useCallback(({ item }: {item: Usuario}) => (
+    <UserItem {...item} />
   ), [])
   return (
     <>
@@ -29,7 +28,7 @@ export const ClientList = memo(function ClientList ({
           borderRadius: 13,
           margin: 10
         }}
-        placeholder='Buscar Cliente por Nombre'
+        placeholder='Buscar Usuario por Nombre'
       />
       <FlatList
         data={query.length ? data.filter(c => c.nombre.toLowerCase().includes(query.toLowerCase())) : data}

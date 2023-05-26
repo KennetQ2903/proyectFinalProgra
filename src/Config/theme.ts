@@ -12,8 +12,8 @@ export const palette = {
 }
 
 export const fonts = {
-  Big: 24 / PixelRatio.getFontScale(),
-  Medium: 18 / PixelRatio.getFontScale(),
-  Small: 14 / PixelRatio.getFontScale(),
-  Tiny: 12 / PixelRatio.getFontScale()
+  Big: 18 / PixelRatio.getFontScale(),
+  Medium: 14 / PixelRatio.getFontScale(),
+  Small: 12 / PixelRatio.getFontScale(),
+  Tiny: 10 / PixelRatio.getFontScale()
 }
