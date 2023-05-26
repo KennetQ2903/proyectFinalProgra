@@ -1,31 +1,19 @@
-import { useCallback, useState } from 'react'
-import { ClientItem } from '../../../../Components/ClientItem'
-import { clientes } from '../../../../Config/examples'
-import { FlatList, TextInput } from 'react-native'
-import { Cliente } from '../../../../../types.global'
-import { palette } from '../../../../Config/theme'
+import { useEffect } from 'react'
+import { useGetClients } from '../../../../Services/useGetClients'
+import { ClientList } from './Components/ClientList'
 export default function Clientes () {
-  const [query, setQuery] = useState('')
-  const renderItem = useCallback(({ item }: {item: Cliente}) => (
-    <ClientItem {...item} />
-  ), [])
-
+  const { getClients, clients, loading } = useGetClients()
+  useEffect(() => {
+    if (clients.data.length === 0) {
+      getClients()
+    }
+  }, [])
   return (
     <>
-      <TextInput
-        value={query}
-        onChangeText={setQuery}
-        style={{
-          backgroundColor: palette.auxiliar,
-          padding: 10,
-          borderRadius: 13,
-          margin: 10
-        }}
-        placeholder='Buscar Cliente por Nombre'
-      />
-      <FlatList
-        data={query.length ? clientes.filter(c => c.nombre.toLowerCase().includes(query.toLowerCase())) : clientes}
-        renderItem={renderItem}
+      <ClientList
+        data={clients.data}
+        loading={loading}
+        onRefresh={getClients}
       />
     </>
   )

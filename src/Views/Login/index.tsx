@@ -9,8 +9,8 @@ import loginFormSchema from '../../Schemas/loginForm'
 export default function Login ({ navigation, route }: LoginScreenType) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      username: '',
-      password: ''
+      username: 'luis',
+      password: '1234'
     },
     reValidateMode: 'onChange',
     shouldFocusError: true,
