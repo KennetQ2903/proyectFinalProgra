@@ -3,6 +3,7 @@ import { FlatList, TextInput, RefreshControl } from 'react-native'
 import { Usuario } from '../../../../../../types.global'
 import { UserItem } from '../../../../../Components/UserItem'
 import { palette } from '../../../../../Config/theme'
+import { EmptyList } from '../../../../../Components/EmptyList'
 
 export const UserList = memo(function UserList ({
   data,
@@ -26,7 +27,7 @@ export const UserList = memo(function UserList ({
           backgroundColor: palette.auxiliar,
           padding: 10,
           borderRadius: 13,
-          margin: 10
+          marginVertical: 10
         }}
         placeholder='Buscar Usuario por Nombre'
       />
@@ -34,6 +35,7 @@ export const UserList = memo(function UserList ({
         data={query.length ? data.filter(c => c.nombre.toLowerCase().includes(query.toLowerCase())) : data}
         renderItem={renderItem}
         refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
+        ListEmptyComponent={<EmptyList />}
       />
     </>
   )

@@ -1,9 +1,10 @@
 import { memo, useCallback, useState } from 'react'
-import { FlatList, TextInput, RefreshControl } from 'react-native'
+import { FlatList, TextInput, RefreshControl, View, StyleSheet } from 'react-native'
 
 import { Cliente } from '../../../../../../types.global'
 import { palette } from '../../../../../Config/theme'
 import { ClientItem } from '../../../../../Components/ClientItem'
+import { EmptyList } from '../../../../../Components/EmptyList'
 
 export const ClientList = memo(function ClientList ({
   data,
@@ -19,7 +20,7 @@ export const ClientList = memo(function ClientList ({
     <ClientItem {...item} />
   ), [])
   return (
-    <>
+    <View style={styles.container}>
       <TextInput
         value={query}
         onChangeText={setQuery}
@@ -27,7 +28,7 @@ export const ClientList = memo(function ClientList ({
           backgroundColor: palette.auxiliar,
           padding: 10,
           borderRadius: 13,
-          margin: 10
+          marginVertical: 10
         }}
         placeholder='Buscar Cliente por Nombre'
       />
@@ -35,7 +36,14 @@ export const ClientList = memo(function ClientList ({
         data={query.length ? data.filter(c => c.nombre.toLowerCase().includes(query.toLowerCase())) : data}
         renderItem={renderItem}
         refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
+        ListEmptyComponent={<EmptyList />}
       />
-    </>
+    </View>
   )
+})
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
 })

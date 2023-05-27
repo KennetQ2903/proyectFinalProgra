@@ -11,24 +11,21 @@ interface Props {
 }
 
 const validator = yup.object().shape({
-  CUI: yup
-    .number()
-    .typeError('Ingrese un CUI valido')
-    .required('Ingrese un CUI valido'),
-  nombre: yup.string().required('Ingrese un nombre'),
-  apellido: yup.string().required('Ingrese un apellido'),
-  telefono: yup.string().required('Ingrese un telefono'),
-  direccion: yup.string().required('Ingrese una direccion')
+  Placa: yup.string().required('Indique la placa del vehículo'),
+  Marca: yup.string().required('Indique la marca del vehículo'),
+  Modelo: yup.string().required('Indique el modelo del vehículo'),
+  Color: yup.string().required('Indique el color del vehículo'),
+  Year: yup.string().required('Indique el año del vehículo')
 })
 
-export const ClientsForm: FC<Props> = ({ handleValues }) => {
+export const VehicleForm: FC<Props> = ({ handleValues }) => {
   const { control, handleSubmit, formState: { isSubmitting } } = useForm({
     defaultValues: {
-      CUI: '',
-      nombre: '',
-      apellido: '',
-      telefono: '',
-      direccion: ''
+      Placa: '',
+      Marca: '',
+      Modelo: '',
+      Color: '',
+      Year: ''
     },
     reValidateMode: 'onChange',
     resolver: yupResolver(validator)
@@ -38,7 +35,7 @@ export const ClientsForm: FC<Props> = ({ handleValues }) => {
     <View
       style={styles.container}
     >
-      <Text style={{ fontSize: fonts.Big, textAlign: 'center' }}>Agregar Cliente</Text>
+      <Text style={{ fontSize: fonts.Big, textAlign: 'center', marginVertical: 10 }}>Agregar Vehículo</Text>
       <Controller
         control={control}
         render={({ field: { onBlur, onChange, value }, fieldState: { error } }) => (
@@ -48,14 +45,13 @@ export const ClientsForm: FC<Props> = ({ handleValues }) => {
               onChangeText={onChange}
               value={value}
               style={styles.input}
-              placeholder='CUI/DPI'
+              placeholder='Modelo'
               returnKeyType='done'
-              keyboardType='numeric'
             />
             <Text style={styles.error}>{error?.message}</Text>
           </>
         )}
-        name='CUI'
+        name='Modelo'
       />
       <Controller
         control={control}
@@ -66,13 +62,13 @@ export const ClientsForm: FC<Props> = ({ handleValues }) => {
               onChangeText={onChange}
               value={value}
               style={styles.input}
-              placeholder='Nombre'
+              placeholder='Marca'
               returnKeyType='done'
             />
             <Text style={styles.error}>{error?.message}</Text>
           </>
         )}
-        name='nombre'
+        name='Marca'
       />
       <Controller
         control={control}
@@ -83,13 +79,13 @@ export const ClientsForm: FC<Props> = ({ handleValues }) => {
               onChangeText={onChange}
               value={value}
               style={styles.input}
-              placeholder='Apellido'
+              placeholder='Placa'
               returnKeyType='done'
             />
             <Text style={styles.error}>{error?.message}</Text>
           </>
         )}
-        name='apellido'
+        name='Placa'
       />
       <Controller
         control={control}
@@ -100,14 +96,13 @@ export const ClientsForm: FC<Props> = ({ handleValues }) => {
               onChangeText={onChange}
               value={value}
               style={styles.input}
-              placeholder='Telefono'
+              placeholder='Color'
               returnKeyType='done'
-              keyboardType='phone-pad'
             />
             <Text style={styles.error}>{error?.message}</Text>
           </>
         )}
-        name='telefono'
+        name='Color'
       />
       <Controller
         control={control}
@@ -118,13 +113,13 @@ export const ClientsForm: FC<Props> = ({ handleValues }) => {
               onChangeText={onChange}
               value={value}
               style={styles.input}
-              placeholder='Direccion'
+              placeholder='Año'
               returnKeyType='done'
             />
             <Text style={styles.error}>{error?.message}</Text>
           </>
         )}
-        name='direccion'
+        name='Year'
       />
 
       <TouchableOpacity

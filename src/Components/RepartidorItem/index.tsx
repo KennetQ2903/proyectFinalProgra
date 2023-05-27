@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
     backgroundColor: palette.secondary,
     padding: 10,
     borderRadius: 13,
-    marginHorizontal: 10,
     marginVertical: 5
   },
   title: {

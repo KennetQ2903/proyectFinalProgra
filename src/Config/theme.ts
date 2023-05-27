@@ -9,7 +9,8 @@ export const palette = {
   white: '#FFFFFF',
   yellow: '#F9D42E',
   error: 'red',
-  graygreen: '#222831'
+  graygreen: '#222831',
+  black: '#000000'
 }
 
 export const fonts = {
