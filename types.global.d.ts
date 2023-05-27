@@ -50,3 +50,12 @@ export interface Stock {
     correlativo: number,
     fechaDeIngreso: string
 }
+
+export interface DB {
+    Clientes: Array<Cliente>
+    Usuarios: Array<Usuario>
+    Vehiculos: Array<Vehiculo>
+    Repartidores: Array<Repartidor>
+    Stock: Array<Stock>
+    Auth: boolean
+}

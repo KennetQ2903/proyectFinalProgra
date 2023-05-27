@@ -8,7 +8,8 @@ export const palette = {
   complementary2: '#C998F1',
   white: '#FFFFFF',
   yellow: '#F9D42E',
-  error: 'red'
+  error: 'red',
+  graygreen: '#222831'
 }
 
 export const fonts = {
