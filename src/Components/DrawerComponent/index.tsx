@@ -1,13 +1,28 @@
 import {
+  DrawerContentComponentProps,
   DrawerContentScrollView,
-  DrawerItem,
-  DrawerContentComponentProps
+  DrawerItem
 } from '@react-navigation/drawer'
-import { palette } from '../../Config/theme'
+import { memo, useCallback } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
-import { useDispatch } from 'react-redux'
-import { useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { palette } from '../../Config/theme'
 import { resetDB } from '../../Redux/reducer'
+import { ReduxStore } from '../../Redux/store'
+
+const DeliveryMenuItem = memo(function DeliveryMenuItem () {
+  const deliverysCount = useSelector((state: ReduxStore) => state.configDB.Pedidos.filter(p => p.estado === 'Pendiente').length)
+  return (
+    <View style={styles.deliveryContainer}>
+      <Text style={styles.title}>Pedidos</Text>
+      <View style={styles.bubble}>
+        <Text style={styles.title}>{deliverysCount > 99 ? '99+' : deliverysCount}</Text>
+      </View>
+    </View>
+  )
+})
 export default function DrawerComponent ({
   navigation,
   state
@@ -38,7 +53,7 @@ export default function DrawerComponent ({
       />
       <DrawerItem
         focused={state.index === 1}
-        label='Pedidos'
+        label={() => <DeliveryMenuItem />}
         onPress={() => navigation.navigate('Pedidos')}
         activeBackgroundColor={palette.secondary}
         activeTintColor={palette.white}
@@ -134,3 +149,22 @@ export default function DrawerComponent ({
     </DrawerContentScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  title: {
+    color: palette.white,
+    fontWeight: 'bold'
+  },
+  bubble: {
+    backgroundColor: palette.complementary1,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 50,
+    alignItems: 'center'
+  },
+  deliveryContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  }
+})

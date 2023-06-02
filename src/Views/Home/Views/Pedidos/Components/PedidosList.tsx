@@ -1,22 +1,22 @@
 import { memo, useCallback, useState } from 'react'
 import { FlatList, TextInput, RefreshControl, StyleSheet, View } from 'react-native'
-import { Repartidor } from '../../../../../../types.global'
+import { Delivery } from '../../../../../../types.global'
 import { palette } from '../../../../../Config/theme'
-import { RepartidorItem } from '../../../../../Components/RepartidorItem'
 import { EmptyList } from '../../../../../Components/EmptyList'
+import { DeliveryItem } from '../../../../../Components/DeliveryItem'
 
-export const RepartidoresList = memo(function RepartidoresList ({
+export const PedidosList = memo(function PedidosList ({
   data,
   loading = false,
   onRefresh
 }: {
-    data: Repartidor[],
+    data: Delivery[],
     loading: boolean,
     onRefresh(): Promise<void>
 }) {
   const [query, setQuery] = useState('')
-  const renderItem = useCallback(({ item }: {item: Repartidor}) => (
-    <RepartidorItem {...item} />
+  const renderItem = useCallback(({ item }: {item: Delivery}) => (
+    <DeliveryItem delivery={item} handleUpdate={onRefresh} />
   ), [])
   return (
     <View style={styles.container}>
@@ -24,10 +24,10 @@ export const RepartidoresList = memo(function RepartidoresList ({
         value={query}
         onChangeText={setQuery}
         style={styles.input}
-        placeholder='Buscar Repartidor por Nombre'
+        placeholder='Buscar Peidido por ID'
       />
       <FlatList
-        data={query.length ? data.filter(c => c.nombre.toLowerCase().includes(query.toLowerCase())) : data}
+        data={query.length ? data.filter(c => c.id?.toString().toLowerCase().includes(query.toLowerCase())) : data}
         renderItem={renderItem}
         refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
         ListEmptyComponent={<EmptyList />}

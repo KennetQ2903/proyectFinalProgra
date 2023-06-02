@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addClients, addRepartidores, addStock, addUsers, addVehicles } from '../Redux/reducer'
+import { addClients, addDelivery, addRepartidores, addStock, addUsers, addVehicles } from '../Redux/reducer'
 import { ReduxStore } from '../Redux/store'
 
 type FetchAction = 'update'
@@ -23,6 +23,7 @@ type DBActions=
   |'ADD_VEHICLE'
   |'ADD_USER'
   |'ADD_REPARTIDOR'
+  |'ADD_DELIVERY'
 
 const DBKeys: {
   [key: string]: string
@@ -31,7 +32,8 @@ const DBKeys: {
   ADD_REPARTIDOR: 'Repartidores',
   ADD_STOCK: 'Stock',
   ADD_USER: 'Usuarios',
-  ADD_VEHICLE: 'Vehiculos'
+  ADD_VEHICLE: 'Vehiculos',
+  ADD_DELIVERY: 'Pedidos'
 }
 // eslint-disable-next-line no-undef
 export function useFetch<T=unknown> (url: string, options?: RequestInit, dbKey?: DBActions): State<T> {
@@ -95,6 +97,8 @@ export function useFetch<T=unknown> (url: string, options?: RequestInit, dbKey?:
         return dispatchApp(addUsers(payload))
       case 'ADD_VEHICLE':
         return dispatchApp(addVehicles(payload))
+      case 'ADD_DELIVERY':
+        return dispatchApp(addDelivery(payload))
       default:
         return null
     }

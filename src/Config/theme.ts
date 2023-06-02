@@ -17,5 +17,6 @@ export const fonts = {
   Big: 18 / PixelRatio.getFontScale(),
   Medium: 14 / PixelRatio.getFontScale(),
   Small: 12 / PixelRatio.getFontScale(),
-  Tiny: 10 / PixelRatio.getFontScale()
+  Tiny: 10 / PixelRatio.getFontScale(),
+  VeryTiny: 8 / PixelRatio.getFontScale()
 }
