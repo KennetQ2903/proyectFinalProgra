@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 const loginFormSchema = yup.object().shape({
-  username: yup
+  nombre: yup
     .string()
     .required('El nombre de usuario es obligatorio'),
   password: yup

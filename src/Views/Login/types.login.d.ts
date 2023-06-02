@@ -1,4 +1,4 @@
 export interface loginForm {
-    username: string;
+    nombre: string;
     password: string;
 }

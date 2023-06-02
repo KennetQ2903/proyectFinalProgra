@@ -1,27 +1,45 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useCallback } from 'react'
-import { StyleSheet, Text, TouchableOpacity, TextInput, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, TextInput, View, ActivityIndicator, Alert } from 'react-native'
 import { Controller, useForm } from 'react-hook-form'
 import { LoginScreenType } from '../../../types.global'
 import { fonts, palette } from '../../Config/theme'
 import { loginForm } from './types.login'
 import loginFormSchema from '../../Schemas/loginForm'
+import { API_URL_PROD } from '../../Config/API'
+import { useDispatch } from 'react-redux'
+import { authenticate } from '../../Redux/reducer'
+
+const URL_AUTH = `${API_URL_PROD}/auth`
 export default function Login ({ navigation, route }: LoginScreenType) {
-  const { control, handleSubmit } = useForm({
+  const dispatch = useDispatch()
+  const { control, handleSubmit, formState: { isSubmitting } } = useForm({
     defaultValues: {
-      username: 'luis',
-      password: '1234'
+      nombre: '',
+      password: ''
     },
     reValidateMode: 'onChange',
     shouldFocusError: true,
     resolver: yupResolver(loginFormSchema)
   })
-  const handleLogin = useCallback((form: loginForm) => {
-    const { password, username } = form
+  const handleLogin = useCallback(async (form: loginForm) => {
     console.log('el formulario es: ', form)
-    if (username === 'luis' && password === '1234') {
-      navigation.replace('Home')
-    }
+    return globalThis.fetch(URL_AUTH, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(form)
+    })
+      .then(res => {
+        if (res.status === 200) {
+          dispatch(authenticate(true))
+          navigation.replace('Home')
+        }
+        if (res.status === 401) {
+          Alert.alert('Error', 'Usuario o contraseña incorrectos')
+        }
+      })
   }, [navigation])
 
   return (
@@ -46,7 +64,7 @@ export default function Login ({ navigation, route }: LoginScreenType) {
             <Text style={{ color: palette.error, fontSize: fonts.Tiny }}>{error?.message}</Text>
           </>
         )}
-        name='username'
+        name='nombre'
       />
       <Controller
         control={control}
@@ -71,9 +89,7 @@ export default function Login ({ navigation, route }: LoginScreenType) {
         name='password'
       />
       <TouchableOpacity style={[styles.button]} onPress={handleSubmit(handleLogin)}>
-        <Text style={[styles.buttonText]}>
-          Iniciar Sesión
-        </Text>
+        {isSubmitting ? <ActivityIndicator color={palette.white} /> : <Text style={styles.buttonText}>Iniciar Sesión</Text>}
       </TouchableOpacity>
     </View>
   )

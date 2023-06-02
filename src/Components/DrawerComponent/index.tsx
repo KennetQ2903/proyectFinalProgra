@@ -5,10 +5,17 @@ import {
 } from '@react-navigation/drawer'
 import { palette } from '../../Config/theme'
 import Icon from 'react-native-vector-icons/AntDesign'
+import { useDispatch } from 'react-redux'
+import { useCallback } from 'react'
+import { resetDB } from '../../Redux/reducer'
 export default function DrawerComponent ({
   navigation,
   state
 }: DrawerContentComponentProps) {
+  const dispatch = useDispatch()
+  const logout = useCallback(() => {
+    dispatch(resetDB())
+  }, [])
   return (
     <DrawerContentScrollView
       style={{ backgroundColor: palette.primary }}
@@ -111,7 +118,7 @@ export default function DrawerComponent ({
       />
       <DrawerItem
         label='Cerrar Sesión'
-        onPress={() => {}}
+        onPress={logout}
         activeBackgroundColor={palette.secondary}
         activeTintColor={palette.white}
         labelStyle={{

@@ -49,6 +49,19 @@ export interface Repartidor {
 export interface Stock {
     correlativo: number,
     fechaDeIngreso: string
+    description: string
+}
+
+export interface Delivery {
+    cliente: Cliente,
+    repartidor: Repartidor,
+    vehiculo: Vehiculo,
+    origen: string,
+    destino: string,
+    fechaInicio: string,
+    producto: Stock,
+    estado: 'Completado'|'Pendiente',
+    id: number
 }
 
 export interface DB {
@@ -57,5 +70,6 @@ export interface DB {
     Vehiculos: Array<Vehiculo>
     Repartidores: Array<Repartidor>
     Stock: Array<Stock>
+    Pedidos: Array<Delivery>
     Auth: boolean
 }
